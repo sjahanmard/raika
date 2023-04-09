@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { factorial } from "../../utils";
 import styles from "./styles.module.css";
+import { useFactorialWorker } from "../../utils/useFactorialWorker";
 
 const App = () => {
   // States & refs
@@ -14,6 +15,7 @@ const App = () => {
       number = Number(number);
       if (Number.isFinite(number)) {
         setNumbers((prev) => [...prev, { [number]: null }]);
+        addToQueue(number);
       } else {
         alert("Please enter a valid number");
       }
@@ -30,15 +32,19 @@ const App = () => {
   }, []);
   const preventDefault = useCallback((e) => e?.preventDefault(), []);
 
-  useEffect(() => {
-    let _numbers = JSON.parse(JSON.stringify(numbers));
-    for (let i = 0; i < numbers?.length; i++) {
-      const numKey = Object.keys(numbers[i])?.[0];
-      const fac = getFactorial(numKey);
-      _numbers[i] = { [numKey]: fac };
-    }
-    setNumbers(_numbers);
-  }, [numbers?.length]);
+  //   useEffect(() => {
+  //     let _numbers = JSON.parse(JSON.stringify(numbers));
+  //     for (let i = 0; i < numbers?.length; i++) {
+  //       const numKey = Object.keys(numbers[i])?.[0];
+  //       const fac = getFactorial(numKey);
+  //       _numbers[i] = { [numKey]: fac };
+  //     }
+  //     setNumbers(_numbers);
+  //   }, [numbers?.length]);
+
+  const { addToQueue } = useFactorialWorker((val) => {
+    console.log("dadadaman", val);
+  });
 
   return (
     <div>
