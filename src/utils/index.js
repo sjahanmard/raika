@@ -1,23 +1,36 @@
-export function factorial(userInt) {
-    if (userInt === 0)
-        return '1'
+// export function factorial(userInt) {
+//   if (userInt === 0) return 1;
 
-    if (!userInt)
-        return ''
+//   if (isNaN(userInt) || userInt < 0) return NaN;
 
-    var i, nextNumber, carret,
+//   let i = 0,
+//     carry = 0,
+//     nextNumber,
+//     result = userInt.toString().split("").reverse().map(Number);
 
-        result = userInt.toString().split('').reverse().map(Number)
+//   while (--userInt) {
+//     i = carry = 0;
 
-    while (--userInt) {
-        i = carret = 0
+//     while ((nextNumber = result[i++]) !== undefined || carry) {
+//       carry = (nextNumber || 0) * userInt + carry;
+//       result[i - 1] = carry % 10;
+//       carry = Math.floor(carry / 10);
+//     }
+//   }
 
-        while ((nextNumber = result[i++]) !== undefined || carret) {
-            carret = (nextNumber || 0) * userInt + carret
-            result[i - 1] = carret % 10
-            carret = parseInt(carret / 10)
-        }
-    }
+//   return Number(result.reverse().join(""));
+// }
 
-    return result.reverse().join('')
+export function factorial(n) {
+  if (n < 0) {
+    return NaN;
+  }
+
+  let result = 1;
+
+  for (let i = 2; i <= n; i++) {
+    result *= i;
+  }
+
+  return result;
 }
